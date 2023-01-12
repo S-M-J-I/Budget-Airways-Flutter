@@ -21,8 +21,8 @@ class _SearchFormState extends State<SearchForm> {
   final TextEditingController _infantsController = TextEditingController();
 
   List<String> list = <String>['DAC', 'IST', 'NYC', 'DXB', 'TOR'];
-  String? _startAir;
-  String? _destAir;
+  String? _startAir = 'DAC';
+  String? _destAir = 'DAC';
   String? _selectedDate;
 
   _searchFlights() async {
@@ -100,7 +100,7 @@ class _SearchFormState extends State<SearchForm> {
                       const Text("Start"),
                       const SizedBox(width: 10.0),
                       DropdownButton(
-                        value: list.first,
+                        value: _startAir,
                         items: list.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                               value: value,
@@ -125,7 +125,7 @@ class _SearchFormState extends State<SearchForm> {
                       const Text("Destination"),
                       const SizedBox(width: 10.0),
                       DropdownButton(
-                        value: list.first,
+                        value: _destAir,
                         items: list.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                               value: value,
