@@ -20,9 +20,9 @@ class _SearchFormState extends State<SearchForm> {
   final TextEditingController _childController = TextEditingController();
   final TextEditingController _infantsController = TextEditingController();
 
-  List<String> list = <String>['DAC', 'IST', 'NYC', 'DXB', 'TOR'];
+  List<String> list = <String>['DAC', 'IST', 'JFK', 'DXB', 'PAR', 'YYZ'];
   String? _startAir = 'DAC';
-  String? _destAir = 'DAC';
+  String? _destAir = 'IST';
   String? _selectedDate;
 
   _searchFlights() async {
@@ -30,29 +30,8 @@ class _SearchFormState extends State<SearchForm> {
         "$_startAir, $_destAir, $_selectedDate, ${_adultsController.value.text}, ${_childController.value.text}, ${_infantsController.value.text}"
     );
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CircularProgressIndicator(),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2,
-                ),
-                const Text("Loading"),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-
+    Dialogs d = Dialogs();
+    d.showSpinnerDialog(context);
 
     try {
       List<Flight> res = await APIMiddlewares().getFlights(path: "flights/getflightoffers", details: <String, String>{
@@ -67,12 +46,16 @@ class _SearchFormState extends State<SearchForm> {
       Navigator.pop(context);
 
       Navigator.push(context,
-        MaterialPageRoute(builder: (context) => FlightLists(flights: res))
+        MaterialPageRoute(builder: (context) => FlightLists(
+          flights: res,
+          adults: _adultsController.value.text,
+          children: _childController.value.text,
+          infants: _infantsController.value.text,
+        ))
       );
     } catch(error) {
       Navigator.pop(context);
 
-      Dialogs d = Dialogs();
       d.showWarningDialog(error, context);
     }
   }
