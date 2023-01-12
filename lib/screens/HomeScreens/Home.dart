@@ -1,5 +1,8 @@
+import 'package:budget_airways/components/OptionsDrawer.dart';
 import 'package:budget_airways/middlewares/AuthMiddlewares.dart';
 import 'package:budget_airways/screens/AuthScreens/SignIn.dart';
+import 'package:budget_airways/screens/HomeScreens/NewTrip.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -11,11 +14,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+
   _showWarningDialog(status) {
     showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text("Error"),
+          title: Text("Error"),
           content: Text(status),
           actions: <Widget>[
             TextButton(
@@ -48,14 +52,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        // leading: const Icon(Icons.view_headline_sharp),
+        title: const Text("Budget Airways"),
+      ),
+      drawer: OptionsDrawer(),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Home"),
-            ElevatedButton(
-                onPressed: _signOut,
-                child: const Text('Log Out'),
+            Container(
+              margin: const EdgeInsets.all(40),
+              child: SizedBox(
+                child: ElevatedButton(
+                  onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewTrip()));
+                  },
+                  child: const Text("Search for flights"),
+                ),
+              ),
             )
           ],
 

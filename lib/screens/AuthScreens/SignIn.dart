@@ -6,6 +6,8 @@ import 'package:budget_airways/screens/HomeScreens/Home.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../middlewares/Dialogs.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -17,27 +19,32 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  _showWarningDialog(status) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text("Error"),
-          content: Text(status),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () { Navigator.of(ctx).pop(); },
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                child: const Text("Okay"),
-              ),
-            ),
-          ],
-        )
-    );
-  }
-
   _trySignIn () async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircularProgressIndicator(),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                ),
+                const Text("Loading"),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
     final status = await AuthMiddlewares().signIn(email: _emailController.text, password: _passwordController.text);
+    Navigator.pop(context);
 
     if(status!.contains("OK")) {
       Navigator.of(context).pushReplacement(
@@ -46,7 +53,8 @@ class _SignInState extends State<SignIn> {
       return;
     }
 
-    _showWarningDialog(status);
+    Dialogs d = Dialogs();
+    d.showWarningDialog(status, context);;
 
   }
 

@@ -6,6 +6,8 @@ import 'package:budget_airways/screens/AuthScreens/SignIn.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../middlewares/Dialogs.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -18,26 +20,6 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-
-  _showWarningDialog(status) {
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text("Error"),
-          content: Text(status),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () { Navigator.of(ctx).pop(); },
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                child: const Text("Okay"),
-              ),
-            ),
-          ],
-        )
-    );
-  }
 
 
   /// TODO:
@@ -78,14 +60,16 @@ class _SignUpState extends State<SignUp> {
     Navigator.pop(context);
 
     if(status!.contains("OK")) {
-      _showWarningDialog("Sign Up Successful");
+      Dialogs d = Dialogs();
+      d.showWarningDialog(status, context);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const SignIn())
       );
       return;
     }
 
-    _showWarningDialog(status);
+    Dialogs d = Dialogs();
+    d.showWarningDialog(status, context);
   }
 
 

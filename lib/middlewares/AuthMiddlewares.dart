@@ -20,7 +20,10 @@ class AuthMiddlewares {
 
       await APIMiddlewares().postToDatabase(path: "users/signup", details: details);
 
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      var userCreds = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final user = userCreds.user;
+
+      await user?.updateDisplayName(fullName);
 
       return "OK";
     } on FirebaseAuthException catch(error) {
