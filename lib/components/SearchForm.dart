@@ -2,6 +2,7 @@ import 'package:budget_airways/components/CardTitle.dart';
 import 'package:budget_airways/components/MyCard.dart';
 import 'package:budget_airways/middlewares/APIMiddlewares.dart';
 import 'package:budget_airways/models/Flight.dart';
+import 'package:budget_airways/screens/HomeScreens/FlightLists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -63,13 +64,17 @@ class _SearchFormState extends State<SearchForm> {
         "infants": _infantsController.value.text
       });
       // print(res[0].airlines);
+      Navigator.pop(context);
 
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => FlightLists(flights: res))
+      );
     } catch(error) {
+      Navigator.pop(context);
+
       Dialogs d = Dialogs();
       d.showWarningDialog(error, context);
     }
-
-    Navigator.pop(context);
   }
 
   _clear() {
