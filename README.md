@@ -1,16 +1,24 @@
-# budget_airways
+# Budget Airways
 
-A new Flutter project.
+An app for you to find the cheapest air deals
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1) Clone the repository:
+```sh
+git clone <URL>
+```
+2) Run:
+```sh
+flutter pub get
+flutter run
+```
 
-A few resources to get you started if this is your first Flutter project:
+## User Guidelines
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+View the [pdf documentation](public/Flight%20Searcher.pdf), which offers an overview. See the [interactive guide](public/Flight%20Searcher.pptx) on how to use this app.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## Application Architecture
+
+![arch](public/arch%20dark.png)
