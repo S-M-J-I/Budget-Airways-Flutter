@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410231518567",
+    "project_id": "react-native-project-2a571",
+    "storage_bucket": "react-native-project-2a571.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410231518567:android:e2d91369775f3d0aff2bc2",
+        "android_client_info": {
+          "package_name": "com.example.budget_airways"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410231518567-4sugb0jtdho84iqdavtaeocnp4h61mb6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdN37FRxxdLx1BR9wRkF5BLy9Tru3Fwho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410231518567-4sugb0jtdho84iqdavtaeocnp4h61mb6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
