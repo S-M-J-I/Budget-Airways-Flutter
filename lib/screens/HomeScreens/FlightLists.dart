@@ -1,4 +1,6 @@
 import 'package:budget_airways/components/MyCard.dart';
+import 'package:budget_airways/middlewares/APIMiddlewares.dart';
+import 'package:budget_airways/middlewares/Dialogs.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/Flight.dart';
@@ -13,8 +15,18 @@ class FlightLists extends StatefulWidget {
 
 class _FlightListsState extends State<FlightLists> {
 
-  _addToWatchList(flight) {
+  _addToWatchList(flight) async {
+    Dialogs d = Dialogs();
+    d.showSpinnerDialog(context);
+    final status = await APIMiddlewares().addToWatchList(path: "flights/add_watchlist", flight: flight);
+    Navigator.pop(context);
 
+    if(status!.contains("OK")) {
+      d.showWarningDialog("Added to watchlist", context);
+      return;
+    }
+
+    d.showWarningDialog(status, context);
   }
 
   @override
@@ -51,6 +63,7 @@ class _FlightListsState extends State<FlightLists> {
                           Text("${widget.flights[index].transit} transit", style: Theme.of(context).textTheme.caption,),
                         ],
                       ),
+                      subtitle: Text("${widget.flights[index].price}"),
                       trailing: IconButton(
                         icon: const Icon(Icons.watch_later, color: Colors.blue),
                         onPressed: () {

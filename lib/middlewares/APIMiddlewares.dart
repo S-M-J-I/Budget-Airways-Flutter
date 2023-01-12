@@ -40,4 +40,20 @@ class APIMiddlewares {
       throw Exception(error.toString());
     }
   }
+
+  Future<String> addToWatchList({required String path, required Flight flight}) async {
+    try {
+      print(flight.toJSON());
+      await http.post(
+        Uri.parse("$_PATH$path"),
+        headers: _OPTIONS,
+        body: jsonEncode(flight.toJSON())
+      );
+
+      return "OK";
+    } catch (error) {
+      throw Exception(error);
+    }
+  }
+
 }
