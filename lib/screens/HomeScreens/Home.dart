@@ -71,7 +71,8 @@ class _HomeState extends State<Home> {
                   child: const Text("Search for flights"),
                 ),
               ),
-            )
+            ),
+            const SizedBox(height: 30,),
           ],
 
         ),
