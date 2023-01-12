@@ -1,5 +1,9 @@
+import 'package:budget_airways/components/MyCard.dart';
+import 'package:budget_airways/components/CardTitle.dart';
 import 'package:budget_airways/middlewares/AuthMiddlewares.dart';
+import 'package:budget_airways/screens/AuthScreens/SignUp.dart';
 import 'package:budget_airways/screens/HomeScreens/Home.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -50,36 +54,73 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(hintText: 'Email'),
+        child: MyCard(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CardTitle(
+                title: "Sign In",
               ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: TextField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(hintText: 'Password'),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email'
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            ElevatedButton(
-                onPressed: _trySignIn,
-                child: const Text("Login")
-            ),
-          ],
+              const SizedBox(
+                height: 30.0,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: TextField(
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.5,
+                child: ElevatedButton(
+                    onPressed: _trySignIn,
+                    child: const Text("Sign In")
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              RichText(text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Don't have an account? ",
+                    style: Theme.of(context).textTheme.bodyMedium
+                  ),
+                  TextSpan(
+                    text: 'Sign Up',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => const SignUp())
+                      );
+                    }
+                  )
+                ]
+              ))
+            ],
+          ),
         ),
       ),
     );
