@@ -30,3 +30,4 @@ View the [pdf documentation](public/Flight%20Searcher.pdf), which offers an over
 ## Application Architecture
 
 ![arch](public/arch%20dark.png)
+![archlight](public/arch%20light.png)
